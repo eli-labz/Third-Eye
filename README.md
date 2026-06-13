@@ -47,35 +47,8 @@ Third Eye is a production-grade OSINT platform that provides situational awarene
 ## Architecture
 
 ```
-flowchart LR
-    A[External Data Sources<br/>OpenSky, USGS, NASA, NOAA, TfL<br/>NVD, GDACS, EONET, FIRMS<br/>N2YO, RSS Feeds<br/>blockstream.info, Blockscout<br/>OpenSanctions, t.me previews]
-    
-    B[Next.js API Routes<br/>/api/flights, /api/earthquakes<br/>/api/cctv, /api/news<br/>/api/fires, /api/maritime<br/>/api/gdelt, /api/satellites<br/>/api/weather, /api/scanner<br/>/api/sentinel, /api/telegram-feed<br/>/api/osint/*]
-    
-    C[Normalize + Enrich<br/>Validate inputs<br/>Transform feeds<br/>Geocode events<br/>Attach risk metadata<br/>Cache responses]
-    
-    D[Client State<br/>Layer state<br/>Filters<br/>Selected entity<br/>Alerts]
-    
-    E[MapLibre GL<br/>GPU / WebGL Render]
-    F[HUD Panels<br/>Status, metrics, alerts]
-    G[Layer Controls<br/>Toggle, filter, focus]
-    H[RECON Toolkit<br/>Port scan<br/>DNS / WHOIS<br/>Vulnerability scanner]
-    
-    I[Operator<br/>Explores map<br/>Selects targets<br/>Runs OSINT and scanner actions]
+<img width="1415" height="867" alt="third-eye-workflow" src="https://github.com/user-attachments/assets/d5918a3b-ff22-4052-a377-2b6792ae25f8" />
 
-    A -->|fetch data| B
-    B -->|route output| C
-    C -->|update state| D
-    C -->|geo layers| E
-    C -->|events and alerts| F
-    D -->|layer configuration| G
-    D -->|target context| H
-    I -->|interact| G
-    I -->|inspect| E
-    I -->|monitor| F
-    I -->|run recon| H
-    H -->|scanner / OSINT request| B
-    B -->|response + status| I
 ```
 
 ---
