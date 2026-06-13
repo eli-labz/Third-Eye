@@ -47,31 +47,35 @@ Third Eye is a production-grade OSINT platform that provides situational awarene
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────┐
-│                 THIRD EYE CLIENT                 │
-│  ┌──────────┐  ┌──────────┐  ┌───────────────┐ │
-│  │ MapLibre  │  │  HUD     │  │  RECON Toolkit│ │
-│  │  GL (GPU) │  │ Panels   │  │  Port Scan    │ │
-│  │  WebGL    │  │ Layers   │  │  DNS / WHOIS  │ │
-│  │  Render   │  │ Controls │  │  Vuln Scanner │ │
-│  └──────────┘  └──────────┘  └───────────────┘ │
-├─────────────────────────────────────────────────┤
-│               NEXT.JS API ROUTES                 │
-│  /api/flights         /api/earthquakes          │
-│  /api/cctv            /api/news                 │
-│  /api/fires           /api/maritime             │
-│  /api/gdelt           /api/satellites           │
-│  /api/weather         /api/scanner              │
-│  /api/sentinel        /api/telegram-feed        │
-│  /api/osint/*  (whois, dns, ip, cve, sanctions, │
-│                 crypto, sweep, threats, …)      │
-├─────────────────────────────────────────────────┤
-│              EXTERNAL DATA SOURCES               │
-│  OpenSky · USGS · NASA · NOAA · TfL · NVD      │
-│  GDACS · EONET · FIRMS · N2YO · RSS Feeds      │
-│  blockstream.info · Blockscout · OpenSanctions  │
-│  t.me public previews                            │
-└─────────────────────────────────────────────────┘
+flowchart LR
+    A[External Data Sources<br/>OpenSky, USGS, NASA, NOAA, TfL<br/>NVD, GDACS, EONET, FIRMS<br/>N2YO, RSS Feeds<br/>blockstream.info, Blockscout<br/>OpenSanctions, t.me previews]
+    
+    B[Next.js API Routes<br/>/api/flights, /api/earthquakes<br/>/api/cctv, /api/news<br/>/api/fires, /api/maritime<br/>/api/gdelt, /api/satellites<br/>/api/weather, /api/scanner<br/>/api/sentinel, /api/telegram-feed<br/>/api/osint/*]
+    
+    C[Normalize + Enrich<br/>Validate inputs<br/>Transform feeds<br/>Geocode events<br/>Attach risk metadata<br/>Cache responses]
+    
+    D[Client State<br/>Layer state<br/>Filters<br/>Selected entity<br/>Alerts]
+    
+    E[MapLibre GL<br/>GPU / WebGL Render]
+    F[HUD Panels<br/>Status, metrics, alerts]
+    G[Layer Controls<br/>Toggle, filter, focus]
+    H[RECON Toolkit<br/>Port scan<br/>DNS / WHOIS<br/>Vulnerability scanner]
+    
+    I[Operator<br/>Explores map<br/>Selects targets<br/>Runs OSINT and scanner actions]
+
+    A -->|fetch data| B
+    B -->|route output| C
+    C -->|update state| D
+    C -->|geo layers| E
+    C -->|events and alerts| F
+    D -->|layer configuration| G
+    D -->|target context| H
+    I -->|interact| G
+    I -->|inspect| E
+    I -->|monitor| F
+    I -->|run recon| H
+    H -->|scanner / OSINT request| B
+    B -->|response + status| I
 ```
 
 ---
