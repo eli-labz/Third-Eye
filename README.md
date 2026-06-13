@@ -10,47 +10,125 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![MapLibre](https://img.shields.io/badge/MapLibre_GL-GPU_Rendered-396CB2?style=for-the-badge)](https://maplibre.org)
 [![License](https://img.shields.io/badge/License-MIT-D4AF37?style=for-the-badge)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/eli-labz/Third-Eye?style=for-the-badge&color=FFD700)](https://github.com/eli-labz/Third-Eye/stargazers)
+[![Forks](https://img.shields.io/github/forks/eli-labz/Third-Eye?style=for-the-badge&color=4CAF50)](https://github.com/eli-labz/Third-Eye/network/members)
+[![Issues](https://img.shields.io/github/issues/eli-labz/Third-Eye?style=for-the-badge)](https://github.com/eli-labz/Third-Eye/issues)
 
 **A real-time global intelligence dashboard that aggregates live flight tracking, CCTV networks, earthquake monitoring, conflict zone mapping, and 24/7 news feeds into a single GPU-accelerated interface.**
 
-[Live Demo](https://geospatialcommand.center) · [Report Bug](https://github.com/simplifaisoul/third-eye/issues) · [Request Feature](https://github.com/simplifaisoul/third-eye/issues) 
+[🌐 Live Demo](https://geospatialcommand.center) · [🐛 Report Bug](https://github.com/eli-labz/Third-Eye/issues) · [✨ Request Feature](https://github.com/eli-labz/Third-Eye/issues) · [⭐ Star This Repo](https://github.com/eli-labz/Third-Eye/stargazers)
+
+> **If Third Eye is useful to you, please consider giving it a ⭐ — it helps the project grow and reach more people!**
 
 </div>
 
 ---
 
-## Overview
+## 🔍 Overview
 
-Third Eye is a production-grade OSINT platform that provides situational awareness across multiple intelligence domains. Built with Next.js 16 and MapLibre GL, every data point is rendered via WebGL for 60fps performance even with thousands of concurrent entities on-screen.
+Third Eye is a **production-grade OSINT platform** that provides real-time situational awareness across 13+ intelligence domains — all in one GPU-accelerated interface. Built with Next.js 16 and MapLibre GL, every data point is rendered via WebGL for **60fps performance** even with thousands of concurrent entities on-screen.
 
-### Key Capabilities
-
-| Domain | Data Points | Sources |
-|--------|------------|---------|
-| **Aviation** | Commercial, Private, Military, Jets | OpenSky Network |
-| **Maritime** | 39 Global Ports, 10 Chokepoints | Static Naval Intel |
-| **CCTV** | 2,000+ Cameras | TfL, WSDOT, Caltrans, NYC DOT, VicRoads + more |
-| **Seismic** | Real-time M2.5+ | USGS Earthquake API |
-| **Fires** | Active Hotspots | NASA FIRMS |
-| **News** | 24/7 Live Streams | 25+ Global Broadcasters |
-| **Weather** | Severe Events | NASA EONET |
-| **Space** | Solar Weather, Satellites | NOAA SWPC, N2YO |
-| **Cyber** | CVE Threats, Vulnerability Scanning | NVD, Custom Scanner |
-| **Conflict** | 13 Active Zones | Static OSINT Intel |
-| **Crypto** | BTC + ETH Wallet Tracing, OFAC SDN Match | blockstream.info, Blockscout, OpenSanctions |
-| **Sanctions** | Person / Org / Vessel SDN Search | OpenSanctions (US OFAC SDN mirror) |
-| **Telegram OSINT** | Geoparsed Posts from Public Channels | `t.me/s/<channel>` web preview |
+No API keys required to get started. Clone, run, and you're live in under 2 minutes.
 
 ---
 
-## Architecture
+## ✨ Why Third Eye?
+
+- 🌍 **16 live data layers** — aviation, maritime, CCTV, seismic, fires, news, weather, space, cyber, conflict, crypto, sanctions, and more
+- ⚡ **WebGL-powered** — GPU-accelerated map rendering, not DOM-based. Handles thousands of entities at 60fps.
+- 🔑 **Zero-key startup** — all core layers work out of the box with public, keyless APIs
+- 🐳 **Docker-ready** — single-command self-hosting with prebuilt GHCR image
+- 🧰 **Built-in RECON toolkit** — port scanner, DNS lookup, WHOIS, SSL inspector, IP intelligence, CVE scanner, crypto wallet tracer, and OFAC sanctions search
+- 📡 **Telegram OSINT** — geoparsed public channel posts plotted on the map in real time
+- 💰 **Crypto intelligence** — BTC + ETH wallet tracing with live OFAC SDN sanctions cross-check
+- 🏠 **Self-hostable** — CasaOS one-click install supported
+
+---
+
+## 🗺️ Intelligence Domains
+
+| Domain | Data Points | Sources |
+|--------|------------|---------|
+| ✈️ **Aviation** | Commercial, Private, Military, Jets | OpenSky Network |
+| 🚢 **Maritime** | 39 Global Ports, 10 Chokepoints | Static Naval Intel |
+| 📷 **CCTV** | 2,000+ Cameras | TfL, WSDOT, Caltrans, NYC DOT, VicRoads + more |
+| 🌋 **Seismic** | Real-time M2.5+ | USGS Earthquake API |
+| 🔥 **Fires** | Active Hotspots | NASA FIRMS |
+| 📺 **News** | 24/7 Live Streams | 25+ Global Broadcasters |
+| 🌪️ **Weather** | Severe Events | NASA EONET |
+| 🛰️ **Space** | Solar Weather, Satellites | NOAA SWPC, N2YO |
+| 🛡️ **Cyber** | CVE Threats, Vulnerability Scanning | NVD, Custom Scanner |
+| ⚔️ **Conflict** | 13 Active Zones | Static OSINT Intel |
+| 💰 **Crypto** | BTC + ETH Wallet Tracing, OFAC SDN Match | blockstream.info, Blockscout, OpenSanctions |
+| 🚫 **Sanctions** | Person / Org / Vessel SDN Search | OpenSanctions (US OFAC SDN mirror) |
+| 📱 **Telegram OSINT** | Geoparsed Posts from Public Channels | t.me/s/ web preview |
+
+---
+
+## 🏗️ Architecture
 
 <img width="1800" height="1280" alt="third-eye-workflow" src="https://github.com/user-attachments/assets/062fe299-f2f5-40b3-92f1-16fa294c9482" />
 
+---
 
+## 🚀 Quick Start
 
+### Option 1 — npm (2 minutes)
 
-## Features
+```bash
+git clone https://github.com/eli-labz/Third-Eye.git
+cd Third-Eye
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) — done. No API keys needed.
+
+### Option 2 — Docker
+
+```bash
+git clone https://github.com/eli-labz/Third-Eye.git
+cd Third-Eye
+cp .env.template .env   # optional — configure keys / port
+docker compose up -d
+```
+
+### Option 3 — Prebuilt Image (fastest)
+
+```bash
+docker pull ghcr.io/aiacos/third-eye:latest
+docker run -d -p 3000:3000 --env-file .env ghcr.io/aiacos/third-eye:latest
+```
+
+> 💡 **Custom port:** Set `THIRDEYE_PORT` in `.env` to change the published host port without editing the compose file.
+
+---
+
+## ⚙️ Configuration
+
+Third Eye works **without any API keys** — all core layers use public, keyless sources. Copy `.env.template` to `.env` and configure only what you need:
+
+```env
+# Published host port (container always listens on 3000). Default: 3000
+THIRDEYE_PORT=3000
+
+# RECON scanner backend — generate key with: openssl rand -hex 32
+SCANNER_URL=
+SCANNER_KEY=
+
+# Optional — for higher rate limits
+FIRMS_API_KEY=         # NASA FIRMS
+OPENSKY_CLIENT_ID=     # OpenSky OAuth2
+OPENSKY_CLIENT_SECRET=
+N2YO_API_KEY=          # N2YO satellites
+AIS_API_KEY=           # aisstream.io maritime
+```
+
+> Without `SCANNER_URL`/`SCANNER_KEY` the RECON toolkit returns `503`; every other layer works out of the box.
+
+---
+
+## 🛠️ Features In Depth
 
 ### Intelligence Layers
 - **16 toggleable data layers** with real-time entity counts
@@ -66,7 +144,7 @@ Third Eye is a production-grade OSINT platform that provides situational awarene
 - **IP Intelligence** — Geolocation, ASN, threat reputation (auto-cross-checked against OFAC SDN)
 - **Vulnerability Scanner** — CVE lookup against NVD database
 - **Crypto Wallet Trace** — BTC + ETH lookup (balance, tx history, OFAC SDN sanctions flag)
-- **OFAC Sanctions Search** — query persons, organizations, vessels and aircraft against the US OFAC SDN list
+- **OFAC Sanctions Search** — Full-text search across persons, organizations, vessels, and aircraft
 
 ### Live Broadcast Network
 - **25+ live 24/7 news streams** from global broadcasters
@@ -74,102 +152,30 @@ Third Eye is a production-grade OSINT platform that provides situational awarene
 - Feeds from NBC, CBS, ABC, Sky News, Al Jazeera, France 24, NHK, WION, and more
 
 ### Telegram OSINT Layer
-- **Public-channel feed** scraped from the unauthenticated `t.me/s/<channel>` web preview — no Bot API token, no MTProto
-- Default curated set of 5 channels (EN + RU/UA war reporting), overridable via `THIRDEYE_TELEGRAM_CHANNELS`
-- Posts are geoparsed against a multilingual place dictionary (EN + Cyrillic + Arabic) and plotted on the map
-- Click any cyan dot to read the post and jump to the original on Telegram
+- **Public-channel feed** scraped from the unauthenticated web preview — no Bot API token, no MTProto
+- Overridable channel list via `THIRDEYE_TELEGRAM_CHANNELS`
+- Posts geoparsed against a multilingual place dictionary (EN + Cyrillic + Arabic) and plotted on the map
 
 ### Crypto Wallet Intelligence
-- **BTC** lookups via [blockstream.info](https://blockstream.info) (Esplora API, keyless)
-- **ETH** lookups via [Blockscout](https://github.com/blockscout/blockscout)'s public ETH instance (`eth.blockscout.com`, keyless)
-- Every lookup is cross-checked against the OFAC SDN sanctioned-address list (mirrored from [`0xB10C/ofac-sanctioned-digital-currency-addresses`](https://github.com/0xB10C/ofac-sanctioned-digital-currency-addresses))
-- Sanctioned wallets surface a red **SANCTIONED — OFAC SDN** badge in the RECON panel
-
-### OFAC SDN Cross-Check
-- Standalone `SANCTIONS` tab in the RECON toolkit — full-text search across persons, organisations, vessels and aircraft
-- WHOIS and IP-intel routes auto-cross-check registrant / ASN-owner names against the SDN list and surface an inline alert
-- Data sourced from [OpenSanctions](https://www.opensanctions.org) (CC-BY 4.0) — keyless, ~7 MB cached in-memory for 24h
+- **BTC** via blockstream.info (Esplora API, keyless)
+- **ETH** via Blockscout's public ETH instance (keyless)
+- Every lookup auto-cross-checked against the OFAC SDN sanctioned-address list
+- Sanctioned wallets surface a red **SANCTIONED — OFAC SDN** badge
 
 ### Conflict Zone Monitoring
-- **13 active conflict/tension zones** with severity-coded warning markers
+- **13 active conflict/tension zones** with severity-coded markers
 - Active Wars: Ukraine, Gaza, Sudan, Myanmar, DRC, Yemen
 - High Tension: Syria, Lebanon, Sahel, Somalia, Red Sea
 - Elevated: Taiwan Strait, Korean DMZ
 
-### Performance Optimized
+### Performance
 - **75% reduction in edge requests** vs initial release
 - Aggressive polling relaxation (15-30 min intervals for stable data)
-- Static data served from memory (zero external API calls for news feeds)
-- `layerFetchedRef` prevents duplicate API requests
+- Static data served from memory — zero external API calls for news feeds
 
 ---
 
-## Quick Start
-
-```bash
-git clone https://github.com/simplifaisoul/third-eye.git
-cd third-eye
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000)
-
-### Docker / Self-Hosting
-
-```bash
-git clone https://github.com/simplifaisoul/third-eye.git
-cd third-eye
-cp .env.template .env     # optional — configure keys / port
-docker compose up -d
-```
-
-Open [http://localhost:3000](http://localhost:3000). The image is a multi-stage
-`node:22-alpine` standalone build (~220 MB, non-root). The compose file also
-carries CasaOS app metadata (`x-casaos:`) for one-click install on
-[CasaOS](https://casaos.io). See **[DOCKER.md](DOCKER.md)** for the full Docker,
-CasaOS and API-key guide.
-
-**Prebuilt image (GHCR)** — skip the build and pull it directly:
-
-```bash
-docker pull ghcr.io/aiacos/third-eye:latest
-docker run -d -p 3000:3000 --env-file .env ghcr.io/aiacos/third-eye:latest
-```
-
-**Custom port** — the container always listens on `3000`; set `THIRDEYE_PORT` in
-`.env` to change the published host port (e.g. `THIRDEYE_PORT=3005`) without
-editing the compose file.
-
-### Environment Variables
-
-Third Eye works **partially without any API keys** — all core feeds use public,
-keyless sources. Copy [`.env.template`](.env.template) to `.env` and set only
-what you need:
-
-```env
-# Published host port (container always listens on 3000). Default: 3000
-THIRDEYE_PORT=3000
-
-# RECON scanner backend (the only vars the current code reads).
-# SCANNER_KEY must match the backend's OSIRIS_KEY — generate with: openssl rand -hex 32
-SCANNER_URL=
-SCANNER_KEY=
-
-# Optional, for higher rate limits / future sources (see DOCKER.md for signup links)
-FIRMS_API_KEY=                # NASA FIRMS  — firms.modaps.eosdis.nasa.gov/api/map_key/
-OPENSKY_CLIENT_ID=            # OpenSky OAuth2 (since Mar 2025) — opensky-network.org
-OPENSKY_CLIENT_SECRET=
-N2YO_API_KEY=                 # N2YO satellites — n2yo.com (Profile → API key)
-AIS_API_KEY=                 # aisstream.io maritime
-```
-
-> Without `SCANNER_URL`/`SCANNER_KEY` the RECON toolkit returns `503`; every
-> other layer works out of the box. `.env` is gitignored — only the template is committed.
-
----
-
-## Tech Stack
+## 🖥️ Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -183,7 +189,7 @@ AIS_API_KEY=                 # aisstream.io maritime
 
 ---
 
-## Keyboard Shortcuts
+## ⌨️ Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
@@ -195,16 +201,43 @@ AIS_API_KEY=                 # aisstream.io maritime
 
 ---
 
-## License
+## 🤝 Contributing
 
-MIT — see [LICENSE](LICENSE) for details.
+Contributions are what make the open-source community amazing. Any contributions you make are **greatly appreciated**.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] WebSocket-based live flight position updates
+- [ ] User-configurable Telegram channel watchlist (UI)
+- [ ] Dark/light map theme toggle
+- [ ] Export layer data as GeoJSON / CSV
+- [ ] Historical playback mode
+- [ ] Mobile-responsive layout
+
+Have an idea? [Open a feature request!](https://github.com/eli-labz/Third-Eye/issues)
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ---
 
 <div align="center">
 
+**Built with ❤️ by [eli-labz](https://github.com/eli-labz)**
 
-**Built by https://github.com/eli-labz**
+⭐ **If you find Third Eye useful, please star the repo — it helps others discover it!** ⭐
 
+[![Star History Chart](https://api.star-history.com/svg?repos=eli-labz/Third-Eye&type=Date)](https://star-history.com/#eli-labz/Third-Eye&Date)
 
 </div>
