@@ -1,3 +1,5 @@
+<img width="1600" height="900" alt="Smart_System_Visual_Diagram" src="https://github.com/user-attachments/assets/853ee276-933d-4266-8382-6e34d5b3157b" />
+<img width="1600" height="900" alt="Smart_System_Visual_Diagram" src="https://github.com/user-attachments/assets/cfe9923b-857e-426d-9e66-b870c834fa0c" />
 <div align="center">
 
 # ⬡ THIRD EYE
@@ -202,6 +204,7 @@ AIS_API_KEY=           # aisstream.io maritime
 ---
 
 ## 🧠 Smart System (optional, off by default)
+<img width="1600" height="900" alt="Smart_System_Visual_Diagram" src="https://github.com/user-attachments/assets/4066e915-a456-443d-8389-a76467cf67e2" />
 
 An optional, **feature-flagged**, **human-in-the-loop** data-fusion module that
 layers an analyst workflow over the platform's existing live feeds:
