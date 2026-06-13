@@ -1,5 +1,3 @@
-<img width="1600" height="900" alt="Smart_System_Visual_Diagram" src="https://github.com/user-attachments/assets/853ee276-933d-4266-8382-6e34d5b3157b" />
-<img width="1600" height="900" alt="Smart_System_Visual_Diagram" src="https://github.com/user-attachments/assets/cfe9923b-857e-426d-9e66-b870c834fa0c" />
 <div align="center">
 
 # ⬡ THIRD EYE
