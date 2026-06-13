@@ -50,8 +50,6 @@ Third Eye is a production-grade OSINT platform that provides situational awarene
 
 
 
----
-
 ## Features
 
 ### Intelligence Layers
