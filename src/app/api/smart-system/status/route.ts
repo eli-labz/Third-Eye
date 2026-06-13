@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getSmartSystem, smartSystemStatusReason } from '@/smart_system';
+import { getSmartSystem, isRunKeyConfigured, smartSystemStatusReason } from '@/smart_system';
 import { disabledResponse } from '../_guard';
 
 export async function GET() {
@@ -12,13 +12,16 @@ export async function GET() {
   if (off) return off;
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   return NextResponse.json({
     enabled: true,
     reason: smartSystemStatusReason(),
     decisionSupportOnly: true,
+    persistence: ss.persistenceKind,
+    runRequiresKey: isRunKeyConfigured(),
     feeds: ss.ingestion.feedStatus(),
-    ontologyCounts: ss.repository.counts(),
-    ontologyTotal: ss.repository.size(),
+    ontologyCounts: ss.ontologyCounts(),
+    ontologyTotal: ss.ontologyTotal(),
     models: ss.models.list(),
     reviewQueue: ss.review.queue().length,
     reviewTotal: ss.review.list().length,

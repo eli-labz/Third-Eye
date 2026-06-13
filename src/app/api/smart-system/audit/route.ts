@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   if (off) return off;
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   const url = new URL(request.url);
   const limit = Math.min(500, Math.max(1, Number(url.searchParams.get('limit')) || 100));
   const entries = ss.auditLog.query({ limit });

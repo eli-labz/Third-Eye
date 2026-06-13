@@ -67,4 +67,22 @@ export class AuditLog {
   size(): number {
     return this.entries.length;
   }
+
+  /** Export all entries (chronological) — for snapshot persistence. */
+  exportEntries(): AuditLogEntry[] {
+    return this.entries.slice();
+  }
+
+  /**
+   * Replace the log from a persisted snapshot, restoring the sequence counter
+   * so newly-recorded ids continue without collision.
+   */
+  replaceEntries(entries: AuditLogEntry[]): void {
+    this.entries.length = 0;
+    this.entries.push(...entries);
+    this.seq = entries.reduce((max, e) => {
+      const n = Number(String(e.id).replace(/\D/g, '')) || 0;
+      return Math.max(max, n);
+    }, 0);
+  }
 }

@@ -45,10 +45,20 @@ import { ReviewService } from './review/review_service';
 
 import type { Detection, OperationalEvent } from './ontology/entities';
 
+import type { SnapshotMeta, SnapshotStore } from './persistence/snapshot_store';
+import {
+  SNAPSHOT_AUDIT_CAP,
+  SNAPSHOT_ENTITY_CAP,
+  SNAPSHOT_REVIEW_CAP,
+  createSnapshotStore,
+} from './persistence/snapshot_store';
+
 export interface SmartSystemOptions {
   clock?: Clock;
   idGen?: IdGen;
   logger?: Logger;
+  /** Persistence backend; defaults to KV when configured, else in-memory. */
+  snapshotStore?: SnapshotStore;
 }
 
 /** Result of an end-to-end analysis pass. */
@@ -79,10 +89,14 @@ export class SmartSystem {
   readonly auditLog: AuditLog;
   readonly review: ReviewService;
 
+  readonly snapshotStore: SnapshotStore;
+  private snapshotMeta: SnapshotMeta | null = null;
+
   constructor(opts: SmartSystemOptions = {}) {
     this.clock = opts.clock ?? systemClock;
     this.idGen = opts.idGen ?? systemIdGen;
     this.logger = opts.logger ?? createLogger();
+    this.snapshotStore = opts.snapshotStore ?? createSnapshotStore();
 
     // Ontology
     this.repository = new OntologyRepository(this.clock, this.logger);
@@ -133,6 +147,59 @@ export class SmartSystem {
 
   private modelCtx(): ModelContext {
     return { clock: this.clock, idGen: this.idGen, logger: this.logger };
+  }
+
+  /** Kind of persistence in effect (for status surfaces). */
+  get persistenceKind(): SnapshotStore['kind'] {
+    return this.snapshotStore.kind;
+  }
+
+  /** True ontology counts (from snapshot meta when hydrated, else live). */
+  ontologyCounts(): Record<string, number> {
+    return this.snapshotMeta?.counts ?? this.repository.counts();
+  }
+
+  ontologyTotal(): number {
+    return this.snapshotMeta?.total ?? this.repository.size();
+  }
+
+  /**
+   * Load persisted state into memory. No-op when no snapshot store is
+   * configured (in-memory singleton keeps its state). On serverless this makes
+   * the shared KV snapshot the source of truth across isolates/requests.
+   */
+  async hydrate(): Promise<void> {
+    try {
+      const snapshot = await this.snapshotStore.load();
+      if (!snapshot) return;
+      this.repository.replaceAll(snapshot.entities);
+      this.review.replaceItems(snapshot.reviewItems);
+      this.auditLog.replaceEntries(snapshot.audit);
+      this.snapshotMeta = snapshot.meta;
+    } catch (err) {
+      this.logger.warn('hydrate failed (continuing in-memory)', err instanceof Error ? err.message : err);
+    }
+  }
+
+  /** Persist a bounded snapshot of current state. No-op without a store. */
+  async persist(): Promise<void> {
+    const meta: SnapshotMeta = {
+      savedAt: this.clock.iso(),
+      counts: this.repository.counts(),
+      total: this.repository.size(),
+    };
+    this.snapshotMeta = meta;
+    if (this.snapshotStore.kind === 'null') return;
+    try {
+      await this.snapshotStore.save({
+        meta,
+        entities: this.repository.exportAll().slice(0, SNAPSHOT_ENTITY_CAP),
+        reviewItems: this.review.exportItems().slice(0, SNAPSHOT_REVIEW_CAP),
+        audit: this.auditLog.exportEntries().slice(-SNAPSHOT_AUDIT_CAP),
+      });
+    } catch (err) {
+      this.logger.warn('persist failed (state kept in-memory)', err instanceof Error ? err.message : err);
+    }
   }
 
   /** Pull all real feeds into the ontology. */

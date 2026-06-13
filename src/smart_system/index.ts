@@ -8,7 +8,13 @@
  * operational apps → human review. See docs/SMART_SYSTEM.md.
  */
 
-export { SMART_SYSTEM_FLAG, isSmartSystemEnabled, smartSystemStatusReason } from './config';
+export {
+  SMART_SYSTEM_FLAG,
+  isSmartSystemEnabled,
+  smartSystemStatusReason,
+  isRunKeyConfigured,
+  checkRunKey,
+} from './config';
 export { createSmartSystem, getSmartSystem, resetSmartSystem, SmartSystem } from './system';
 export type { SmartSystemOptions, AnalysisResult } from './system';
 

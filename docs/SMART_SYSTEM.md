@@ -21,6 +21,40 @@ The flag is read via `process.env.ENABLE_MSS_SMART_SYSTEM_MODULE` and surfaced t
 the client bundle under the same name via `next.config.ts` (`env`), so one flag
 controls both server and client.
 
+### Securing the `/run` endpoint
+
+`POST /api/smart-system/run` is heavy (it ingests thousands of live entities and
+fans out to the internal feeds). On a public deployment, guard it:
+
+```env
+SMART_SYSTEM_RUN_KEY=<random-secret>   # openssl rand -hex 32
+```
+
+When set, callers must supply the key via the `x-smart-system-key` header (or
+`?key=`); the panel's **RUN FUSION** button prompts the operator for it once and
+remembers it in `localStorage`. When unset, `/run` is open (fine for local/dev).
+The key is **server-only** (never inlined into the client bundle). All read
+endpoints stay open (they only expose already-reviewed, simulation-safe data).
+
+### Persistence (surviving serverless requests)
+
+By default the Smart System keeps its state **in-memory**, which on Vercel is
+per-isolate — a `RUN FUSION` and a later tab read may hit different isolates. To
+make state survive across requests, point it at a KV store (Vercel KV / Upstash):
+
+```env
+KV_REST_API_URL=...      # auto-injected when you add Vercel KV to the project
+KV_REST_API_TOKEN=...
+```
+
+Each request then hydrates from a shared, bounded snapshot (newest entities +
+full review queue + audit) and persists after mutations. With no KV configured,
+behavior is unchanged (in-memory singleton). The status endpoint reports the
+active mode via `"persistence": "kv" | "null"`.
+
+**Provisioning on Vercel:** Project → **Storage** → create a **KV** store → it
+auto-injects `KV_REST_API_*` → redeploy. No code change needed.
+
 ## Architecture (five layers)
 
 All code lives under [`src/smart_system/`](../src/smart_system) and keeps its own

@@ -201,4 +201,15 @@ export class ReviewService {
     if (!item) throw new Error(`review item not found: ${reviewId}`);
     return compareDecision(item.aiVersion.recommendation, item.humanVersion);
   }
+
+  /** Export all review items (newest-first) — for snapshot persistence. */
+  exportItems(): ReviewItem[] {
+    return this.list();
+  }
+
+  /** Replace all review items from a persisted snapshot. */
+  replaceItems(items: ReviewItem[]): void {
+    this.items.clear();
+    for (const item of items) this.items.set(item.id, item);
+  }
 }

@@ -12,6 +12,7 @@ export async function GET() {
   if (off) return off;
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   const items = ss.review.list().map((item) => ({
     reviewId: item.id,
     recommendationId: item.recommendationId,

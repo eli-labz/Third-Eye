@@ -8,16 +8,20 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getSmartSystem } from '@/smart_system';
-import { disabledResponse, originOf } from '../_guard';
+import { disabledResponse, originOf, runKeyResponse } from '../_guard';
 
 export async function POST(request: NextRequest) {
   const off = disabledResponse();
   if (off) return off;
+  const unauthorized = runKeyResponse(request);
+  if (unauthorized) return unauthorized;
 
   try {
     const ss = getSmartSystem();
+    await ss.hydrate(); // load persisted state so review/audit survive the run
     const ingestion = await ss.ingest({ baseUrl: originOf(request) });
     const analysis = ss.analyze();
+    await ss.persist(); // snapshot new state so it survives across requests
     return NextResponse.json({
       ok: true,
       ingestion,

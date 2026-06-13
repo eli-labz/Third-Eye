@@ -73,9 +73,22 @@ export default function SmartSystemPanel() {
 
   const runFusion = useCallback(async () => {
     setRunning(true); setError(null);
+    const doRun = (key?: string | null) =>
+      fetch('/api/smart-system/run', {
+        method: 'POST',
+        headers: key ? { 'x-smart-system-key': key } : undefined,
+      });
     try {
-      const res = await fetch('/api/smart-system/run', { method: 'POST' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const stored = typeof window !== 'undefined' ? localStorage.getItem('smart-system-run-key') : null;
+      let res = await doRun(stored);
+      // Guarded endpoint: prompt the operator for the run key, then retry.
+      if (res.status === 401 && typeof window !== 'undefined') {
+        const entered = window.prompt('Operator run key required (SMART_SYSTEM_RUN_KEY):');
+        if (!entered) { setError('Run is guarded — operator key required.'); return; }
+        localStorage.setItem('smart-system-run-key', entered);
+        res = await doRun(entered);
+      }
+      if (!res.ok) throw new Error(res.status === 401 ? 'invalid run key' : `HTTP ${res.status}`);
       await load(tab);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'fusion run failed');
@@ -181,6 +194,12 @@ function Row({ label, value, tone }: { label: string; value: React.ReactNode; to
 function FeedsView({ data }: { data: any }) {
   return (
     <div className="space-y-2">
+      <div className="flex flex-wrap items-center gap-1">
+        <Pill tone={data.persistence === 'kv' ? 'green' : 'muted'}>
+          {data.persistence === 'kv' ? 'PERSISTENT (KV)' : 'IN-MEMORY'}
+        </Pill>
+        {data.runRequiresKey && <Pill tone="gold">RUN: KEY REQUIRED</Pill>}
+      </div>
       <div className="grid grid-cols-3 gap-1">
         <div className="glass-panel-sm p-1.5 text-center"><div className="hud-label text-[6px]">ENTITIES</div><div className="hud-value text-[11px]">{data.ontologyTotal ?? 0}</div></div>
         <div className="glass-panel-sm p-1.5 text-center"><div className="hud-label text-[6px]">QUEUE</div><div className="hud-value text-[11px] text-[var(--gold-primary)]">{data.reviewQueue ?? 0}</div></div>

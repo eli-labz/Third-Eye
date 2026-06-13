@@ -19,6 +19,7 @@ export async function GET(request: NextRequest) {
   if (off) return off;
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   const url = new URL(request.url);
   const kindParam = url.searchParams.get('kind') as EntityKind | null;
   const kind = kindParam && VALID_KINDS.has(kindParam) ? kindParam : undefined;

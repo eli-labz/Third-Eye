@@ -13,6 +13,7 @@ export async function GET() {
   if (off) return off;
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   const { generated, comparison } = ss.coa.compare();
   return NextResponse.json({
     decisionSupportOnly: true,

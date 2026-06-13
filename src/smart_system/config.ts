@@ -44,3 +44,26 @@ export function smartSystemStatusReason(): string {
     ? `enabled via ${SMART_SYSTEM_FLAG}`
     : `disabled (set ${SMART_SYSTEM_FLAG}=true to enable)`;
 }
+
+// ── /run guard (server-only secret) ──────────────────────────────────────────
+// SMART_SYSTEM_RUN_KEY protects the heavy POST /api/smart-system/run endpoint
+// from public abuse. Bracket access keeps it OUT of the client bundle — it is
+// only ever read server-side. When unset, /run is open (recommended to set it
+// on any public deployment).
+
+export const SMART_SYSTEM_RUN_KEY_VAR = 'SMART_SYSTEM_RUN_KEY' as const;
+
+/** True when a run key is configured (so /run requires authorization). */
+export function isRunKeyConfigured(): boolean {
+  return Boolean(process.env[SMART_SYSTEM_RUN_KEY_VAR]);
+}
+
+/**
+ * Validate a caller-supplied run key. Returns true when no key is configured
+ * (open) or when the supplied value matches the configured secret.
+ */
+export function checkRunKey(provided: string | null | undefined): boolean {
+  const expected = process.env[SMART_SYSTEM_RUN_KEY_VAR];
+  if (!expected) return true; // no key set → endpoint is open
+  return typeof provided === 'string' && provided.length > 0 && provided === expected;
+}

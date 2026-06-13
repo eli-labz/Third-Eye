@@ -201,6 +201,35 @@ AIS_API_KEY=           # aisstream.io maritime
 
 ---
 
+## 🧠 Smart System (optional, off by default)
+
+An optional, **feature-flagged**, **human-in-the-loop** data-fusion module that
+layers an analyst workflow over the platform's existing live feeds:
+
+> **Ingestion → Ontology → Advisory AI models → Human review → Audit**
+
+It is **decision-support only** — nothing autonomous, kinetic, or real-world. It
+ingests the platform's *real* feeds (flights, maritime, satellites, earthquakes,
+GDELT, news), normalizes them into canonical entities, runs explainable advisory
+models (object-detection summary, track-anomaly detection, report summarization,
+course-of-action generation, risk scoring), and routes every recommendation into
+a **human approve / reject / request-changes** queue with a full audit trail.
+
+Completely invisible unless enabled:
+
+```env
+ENABLE_MSS_SMART_SYSTEM_MODULE=true      # adds a "Smart System" panel + /api/smart-system/*
+SMART_SYSTEM_RUN_KEY=<random-secret>     # (recommended) guards the heavy /run endpoint
+KV_REST_API_URL=...                      # (optional) Vercel KV / Upstash → state persists
+KV_REST_API_TOKEN=...                    #             across serverless requests
+```
+
+When off, the GUI, routes and workflows are **unchanged**. Full architecture,
+API reference, and safety notes: **[docs/SMART_SYSTEM.md](docs/SMART_SYSTEM.md)**.
+Run its test suite with `npm test`.
+
+---
+
 ## 🤝 Contributing
 
 Contributions are what make the open-source community amazing. Any contributions you make are **greatly appreciated**.

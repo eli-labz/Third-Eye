@@ -102,4 +102,18 @@ export class OntologyRepository {
   clear(): void {
     this.store.clear();
   }
+
+  /** Export all stored entities (newest-first) — for snapshot persistence. */
+  exportAll(): AnyEntity[] {
+    return this.query();
+  }
+
+  /**
+   * Replace the entire store with the given (already-validated) entities.
+   * Used to hydrate from a persisted snapshot; skips re-validation/audit.
+   */
+  replaceAll(entities: AnyEntity[]): void {
+    this.store.clear();
+    for (const e of entities) this.store.set(e.id, e);
+  }
 }

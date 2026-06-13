@@ -20,6 +20,7 @@ export async function GET() {
   if (off) return off;
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   const queue = ss.review.queue().map((item) => ({
     reviewId: item.id,
     model: `${item.modelName}@${item.modelVersion}`,
@@ -58,9 +59,11 @@ export async function POST(request: NextRequest) {
   }
 
   const ss = getSmartSystem();
+  await ss.hydrate();
   try {
     const item = ss.review.decide(reviewId, { decidedBy, decision, rationale, humanVersion });
     const comparison = ss.review.comparison(reviewId);
+    await ss.persist();
     return NextResponse.json({
       ok: true,
       reviewId: item.id,
