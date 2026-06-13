@@ -15,15 +15,25 @@ export interface KvClient {
   set(key: string, value: string): Promise<void>;
 }
 
+// Accept either naming convention so any provisioning path works:
+//   Vercel KV → KV_REST_API_URL / KV_REST_API_TOKEN
+//   Upstash   → UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN
+function kvUrl(): string | undefined {
+  return process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
+}
+function kvToken(): string | undefined {
+  return process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
+}
+
 /** True when KV credentials are configured in the environment. */
 export function isKvConfigured(): boolean {
-  return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+  return Boolean(kvUrl() && kvToken());
 }
 
 /** Build a KV client from env, or null when not configured. */
 export function createKvClient(): KvClient | null {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  const url = kvUrl();
+  const token = kvToken();
   if (!url || !token) return null;
   const base = url.replace(/\/+$/, '');
 
