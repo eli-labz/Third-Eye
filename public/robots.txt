@@ -1,5 +1,5 @@
 # ThirdEye Global Intelligence Platform
-# https://thirdeye.live
+# https://geospatialcommand.center
 
 User-agent: *
 Allow: /
@@ -11,7 +11,7 @@ Disallow: /api/osint/*
 Allow: /api/health
 
 # Sitemap
-Sitemap: https://thirdeye.live/sitemap.xml
+Sitemap: https://geospatialcommand.center/sitemap.xml
 
 # Crawl-delay for respectful indexing
 Crawl-delay: 10

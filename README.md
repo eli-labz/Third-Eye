@@ -13,7 +13,7 @@
 
 **A real-time global intelligence dashboard that aggregates live flight tracking, CCTV networks, earthquake monitoring, conflict zone mapping, and 24/7 news feeds into a single GPU-accelerated interface.**
 
-[Live Demo](https://thirdeye.live) · [Report Bug](https://github.com/simplifaisoul/third-eye/issues) · [Request Feature](https://github.com/simplifaisoul/third-eye/issues) 
+[Live Demo](https://geospatialcommand.center) · [Report Bug](https://github.com/simplifaisoul/third-eye/issues) · [Request Feature](https://github.com/simplifaisoul/third-eye/issues) 
 
 </div>
 

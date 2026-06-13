@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const SITE_URL = "https://thirdeye.live";
+const SITE_URL = "https://geospatialcommand.center";
 const SITE_NAME = "Third Eye";
 const SITE_TITLE = "Third Eye — Open Source Intelligence Platform | Live Flight Tracking, CCTV, OSINT Tools & More";
 const SITE_DESCRIPTION = "The open-source Palantir alternative. Track 10,000+ aircraft, 2,000 satellites, and worldwide CCTV cameras in real-time on a 3D globe. Run Nmap scans, DNS lookups, WHOIS queries, SSL cert analysis & threat intelligence — all from your browser. 20+ live data feeds including earthquakes, wildfires, nuclear facilities, cyber threats, and global conflicts. Free & open source.";
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     "defense stocks", "commodities tracker",
     
     // Brand
-    "third eye", "thirdeye", "thirdeye.live",
+    "third eye", "thirdeye", "geospatialcommand.center",
   ],
   authors: [{ name: "Third Eye Project", url: SITE_URL }],
   creator: "Third Eye Project",

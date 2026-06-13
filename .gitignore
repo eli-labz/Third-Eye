@@ -59,3 +59,6 @@ temp_routes.txt
 # Downloaded binaries / installers (not part of the app)
 /ollama/
 *.exe
+
+# Claude Code local harness settings
+/.claude/
