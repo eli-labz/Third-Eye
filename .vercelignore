@@ -1,0 +1,24 @@
+# Large binaries / installers — never deploy
+ollama/
+*.exe
+
+# Build artifacts & deps (Vercel installs/builds fresh)
+node_modules/
+.next/
+out/
+build/
+
+# VCS / local
+.git/
+.claude/
+AI-Memory/
+
+# Secrets & local env
+credentials.json
+.env.local
+.env*.local
+
+# Dev artifacts
+*.diff
+diff.txt
+temp_routes.txt
