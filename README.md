@@ -47,7 +47,8 @@ Third Eye is a production-grade OSINT platform that provides situational awarene
 ## Architecture
 
 ```
-<img width="1415" height="867" alt="third-eye-workflow" src="https://github.com/user-attachments/assets/d5918a3b-ff22-4052-a377-2b6792ae25f8" />
+<img width="1415" height="867" alt="third-eye-workflow" src="https://github.com/user-attachments/assets/d55682c4-68d9-4461-98ab-4a692d0fc8b8" />
+
 
 ```
 
