@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0C0C14"/>
+      <stop offset="100%" stop-color="#06060C"/>
+    </radialGradient>
+    <radialGradient id="iris" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5D76E"/>
+      <stop offset="60%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="f1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="glow-filter">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  
+  <!-- Outer glow ring -->
+  <circle cx="256" cy="240" r="180" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.15"/>
+  <circle cx="256" cy="240" r="160" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.1"/>
+  
+  <!-- Ambient glow -->
+  <ellipse cx="256" cy="240" rx="120" ry="60" fill="url(#glow)"/>
+  
+  <!-- Eye of Horus - Main eye shape -->
+  <g filter="url(#f1)">
+    <!-- Eye outline -->
+    <path d="M76 240 Q166 140 256 160 Q346 140 436 240 Q346 340 256 320 Q166 340 76 240Z" 
+          fill="rgba(212,175,55,0.06)" stroke="#D4AF37" stroke-width="3" stroke-linejoin="round"/>
+    
+    <!-- Inner eye detail -->
+    <path d="M110 240 Q183 170 256 180 Q329 170 402 240 Q329 310 256 300 Q183 310 110 240Z" 
+          fill="rgba(212,175,55,0.08)" stroke="#D4AF37" stroke-width="1.5" opacity="0.5"/>
+  </g>
+  
+  <!-- Iris -->
+  <circle cx="256" cy="240" r="52" fill="url(#iris)" filter="url(#glow-filter)"/>
+  
+  <!-- Iris ring detail -->
+  <circle cx="256" cy="240" r="52" fill="none" stroke="#F5D76E" stroke-width="2" opacity="0.6"/>
+  <circle cx="256" cy="240" r="44" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.3"/>
+  
+  <!-- Pupil -->
+  <circle cx="256" cy="240" r="18" fill="#06060C"/>
+  <circle cx="256" cy="240" r="18" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Pupil highlight -->
+  <circle cx="248" cy="232" r="5" fill="white" opacity="0.3"/>
+  
+  <!-- Eye of Horus - Teardrop/Falcon markings -->
+  <g stroke="#D4AF37" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main teardrop -->
+    <path d="M256 292 L230 370 Q226 382 236 378 L256 360" stroke-width="4" opacity="0.9"/>
+    <!-- Spiral curl -->
+    <path d="M230 370 L210 358 Q194 350 200 340 L218 330" stroke-width="3" opacity="0.7"/>
+    <!-- Eyebrow accent -->
+    <path d="M120 200 Q188 150 256 155 Q324 150 392 200" stroke-width="2.5" opacity="0.4"/>
+  </g>
+  
+  <!-- Corner tech accents -->
+  <g stroke="#D4AF37" stroke-width="1.5" opacity="0.25" fill="none">
+    <!-- Top-left -->
+    <path d="M40 80 L80 80 M40 80 L40 120"/>
+    <!-- Top-right -->
+    <path d="M472 80 L432 80 M472 80 L472 120"/>
+    <!-- Bottom-left -->
+    <path d="M40 432 L80 432 M40 432 L40 392"/>
+    <!-- Bottom-right -->
+    <path d="M472 432 L432 432 M472 432 L472 392"/>
+  </g>
+  
+  <!-- "THIRD EYE" text at bottom -->
+  <text x="256" y="460" text-anchor="middle" font-family="monospace" font-size="30"
+        fill="#D4AF37" letter-spacing="8" font-weight="700" opacity="0.8">THIRD EYE</text>
+</svg>

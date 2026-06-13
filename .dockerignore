@@ -1,0 +1,34 @@
+# Dependencies & build output (rebuilt inside image)
+node_modules
+.next
+out
+build
+
+# Local env / secrets
+.env
+.env.local
+.env*.local
+
+# VCS & tooling
+.git
+.gitignore
+.github
+
+# Large fork artifacts not needed at runtime
+*.diff
+fork.diff
+ito69_fork.diff
+
+# Docs / meta
+README.md
+AGENTS.md
+CLAUDE.md
+DO_NOT_PUSH.md
+LICENSE
+
+# OS / editor noise
+.DS_Store
+*.log
+npm-debug.log*
+.vscode
+.idea

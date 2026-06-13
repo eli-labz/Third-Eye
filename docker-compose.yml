@@ -1,0 +1,92 @@
+name: third-eye
+services:
+  third-eye:
+    # Pulls the prebuilt image from GitHub Container Registry. The `build:`
+    # block is kept as a fallback: `docker compose up -d` uses the registry
+    # image if present/pullable, otherwise builds locally from the Dockerfile.
+    # Run `docker compose pull` to fetch the latest published image.
+    image: ghcr.io/aiacos/third-eye:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: third-eye
+    # Host port is configurable via THIRDEYE_PORT in .env (defaults to 3000).
+    ports:
+      - "${THIRDEYE_PORT:-3000}:3000"
+    # Optional API keys / scanner backend — copy .env.template to .env and
+    # fill in what you need. Missing file is ignored (keyless feeds still work).
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    networks:
+      - default
+      - umami_default
+
+networks:
+  umami_default:
+    external: true
+
+# ── CasaOS app-store metadata (ignored by plain Docker Compose) ──
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: third-eye
+  author: simplifaisoul
+  developer: simplifaisoul
+  category: Network
+  description:
+    en_us: >-
+      Third Eye is a production-grade open-source OSINT situational-awareness
+      dashboard. It aggregates real-time global intelligence across aviation,
+      maritime, CCTV networks, seismic activity, wildfires, news feeds,
+      weather, space weather, cyber threats (CVEs) and conflict zones into a
+      single GPU-accelerated MapLibre interface. Most features work with no
+      API keys.
+  tagline:
+    en_us: Real-time global OSINT intelligence dashboard
+  title:
+    en_us: Third Eye
+  icon: https://raw.githubusercontent.com/Aiacos/third-eye/master/public/casaos-icon.png
+  thumbnail: https://raw.githubusercontent.com/Aiacos/third-eye/master/public/og-image.png
+  screenshot_link:
+    - https://raw.githubusercontent.com/Aiacos/third-eye/master/public/og-image.png
+  scheme: http
+  hostname: ""
+  port_map: "3000"
+  index: /
+  webui_port: 3000
+  envs:
+    - container: SCANNER_URL
+      description:
+        en_us: "(Optional) RECON scanner backend URL, e.g. http://scanner:7700"
+    - container: SCANNER_KEY
+      description:
+        en_us: "(Optional) RECON scanner shared secret (must match backend OSIRIS_KEY)."
+    - container: FIRMS_API_KEY
+      description:
+        en_us: "(Optional) NASA FIRMS API key for active-fire data."
+    - container: AIS_API_KEY
+      description:
+        en_us: "(Optional) aisstream.io key for maritime vessel tracking."
+    - container: OPENSKY_CLIENT_ID
+      description:
+        en_us: "(Optional) OpenSky OAuth2 client id for higher aircraft rate limits."
+    - container: OPENSKY_CLIENT_SECRET
+      description:
+        en_us: "(Optional) OpenSky OAuth2 client secret."
+    - container: N2YO_API_KEY
+      description:
+        en_us: "(Optional) N2YO key for satellite tracking."
+  ports:
+    - container: "3000"
+      description:
+        en_us: "Web UI (HTTP)."

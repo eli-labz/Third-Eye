@@ -1,0 +1,2236 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   THIRD EYE — Global Intelligence Platform Design System
+   Egyptian Mythology × Dark Ops × Glassmorphism
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Core Palette ── */
+  --bg-void: #04040A;
+  --bg-primary: #06060C;
+  --bg-secondary: #0C0E1A;
+  --bg-tertiary: #121628;
+  --bg-panel: rgba(8, 10, 20, 0.88);
+  --bg-panel-solid: #0C0E1A;
+
+  /* ── Gold Accent (Eye of Horus) ── */
+  --gold-primary: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dim: #8B7325;
+  --gold-glow: rgba(212, 175, 55, 0.3);
+
+  /* ── Cyan Intel Stream ── */
+  --cyan-primary: #00E5FF;
+  --cyan-dim: #006B7A;
+  --cyan-glow: rgba(0, 229, 255, 0.15);
+
+  /* ── Alert Colors ── */
+  --alert-red: #FF3D3D;
+  --alert-orange: #FF9500;
+  --alert-green: #00E676;
+  --alert-blue: #448AFF;
+
+  /* ── Accent Colors (layer-specific) ── */
+  --accent-weather: #E040FB;
+  --accent-nuclear: #76FF03;
+
+  /* ── Borders ── */
+  --border-primary: rgba(212, 175, 55, 0.15);
+  --border-secondary: rgba(212, 175, 55, 0.08);
+  --border-active: rgba(212, 175, 55, 0.4);
+  --border-cyan: rgba(0, 229, 255, 0.2);
+
+  /* ── Text ── */
+  --text-primary: #E8E6E0;
+  --text-secondary: #9B978E;
+  --text-muted: #5C5A54;
+  --text-heading: #F5F0E0;
+  --text-gold: #D4AF37;
+  --text-cyan: #00E5FF;
+
+  /* ── Scrollbar ── */
+  --scrollbar-thumb: rgba(212, 175, 55, 0.2);
+  --scrollbar-thumb-hover: rgba(212, 175, 55, 0.4);
+
+  /* ── Hover ── */
+  --hover-accent: rgba(212, 175, 55, 0.08);
+
+  /* ── Fonts ── */
+  --font-hud: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  /* ── Spacing (responsive) ── */
+  --panel-gap: 12px;
+  --edge-pad: 20px;
+}
+
+@theme inline {
+  --color-background: var(--bg-void);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-hud);
+}
+
+/* ── Base ── */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Scrollbar ── */
+.styled-scrollbar::-webkit-scrollbar { width: 3px; }
+.styled-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.styled-scrollbar::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+.styled-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+.styled-scrollbar { }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASS PANELS — Premium depth with micro-reflections
+   ═══════════════════════════════════════════════════════════════ */
+.glass-panel {
+  background: var(--bg-panel);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid var(--border-primary);
+  border-radius: 14px;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(212, 175, 55, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(212, 175, 55, 0.22);
+}
+
+.glass-panel-sm {
+  background: var(--bg-panel);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-secondary);
+  border-radius: 10px;
+}
+
+/* ── ThirdEye Gold Glow ── */
+.thirdeye-glow {
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.12),
+    0 0 60px rgba(212, 175, 55, 0.06),
+    0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.thirdeye-glow-cyan {
+  box-shadow:
+    0 0 20px rgba(0, 229, 255, 0.1),
+    0 0 60px rgba(0, 229, 255, 0.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HUD TEXT SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+.hud-text {
+  font-family: var(--font-hud);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hud-label {
+  font-family: var(--font-hud);
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hud-value {
+  font-family: var(--font-hud);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes thirdeye-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes thirdeye-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes thirdeye-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.2); }
+}
+
+@keyframes data-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes threat-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-thirdeye-pulse { animation: thirdeye-pulse 2s ease-in-out infinite; }
+.animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+.animate-data-pulse { animation: data-pulse 2s ease-in-out infinite; }
+.animate-threat-flash { animation: threat-flash 1.5s ease-in-out infinite; }
+
+/* Splash screen scanline drift */
+@keyframes splashScanDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+.thirdeye-splash-bg {
+  background: radial-gradient(ellipse at center, #0a0a14 0%, var(--bg-void) 70%);
+}
+
+.thirdeye-splash-scanlines {
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.015) 2px, rgba(212, 175, 55, 0.015) 4px);
+  animation: splashScanDrift 8s linear infinite;
+}
+
+.thirdeye-splash-core-dot {
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.05) 70%);
+}
+
+.thirdeye-splash-cross-v {
+  background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.3), transparent);
+}
+
+.thirdeye-splash-cross-h {
+  background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
+}
+
+.thirdeye-splash-radar {
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(212, 175, 55, 0.15) 40deg, transparent 80deg);
+}
+
+.thirdeye-splash-progress {
+  background: linear-gradient(90deg, var(--gold-primary), var(--cyan-primary), var(--gold-primary));
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.thirdeye-splash-grid {
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.5) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Ticker scroll — pure CSS, GPU-accelerated */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAP OVERRIDES
+   ═══════════════════════════════════════════════════════════════ */
+.maplibregl-popup-content { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+.maplibregl-popup-tip { display: none !important; }
+.maplibregl-ctrl-attrib { display: none !important; }
+.maplibregl-popup-close-button { color: var(--text-muted) !important; font-size: 16px !important; padding: 4px 8px !important; }
+.maplibregl-popup-close-button:hover { color: var(--gold-primary) !important; }
+
+.map-focus-active .maplibregl-canvas-container { filter: brightness(0.3); transition: filter 0.3s ease; }
+.map-focus-active .maplibregl-popup { z-index: 10 !important; }
+
+/* ── Layer Toggle Switch ── */
+.layer-toggle {
+  position: relative; width: 28px; height: 14px; border-radius: 7px;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer; transition: all 0.3s ease; flex-shrink: 0;
+}
+.layer-toggle.active { background: rgba(212, 175, 55, 0.25); border-color: var(--gold-primary); }
+.layer-toggle::after {
+  content: ''; position: absolute; top: 1px; left: 1px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--text-muted); transition: all 0.3s ease;
+}
+.layer-toggle.active::after { left: 15px; background: var(--gold-primary); box-shadow: 0 0 8px rgba(212, 175, 55, 0.5); }
+
+/* ── Risk Badges ── */
+.risk-critical { color: #FF3D3D; text-shadow: 0 0 8px rgba(255, 61, 61, 0.5); }
+.risk-high { color: #FF9500; text-shadow: 0 0 8px rgba(255, 149, 0, 0.3); }
+.risk-medium { color: #D4AF37; }
+.risk-low { color: #00E676; }
+
+/* ── CRT Scanlines ── */
+.crt-scanlines {
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 4px);
+}
+
+/* ── Vignette ── */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(4,4,10,0.6) 80%, rgba(4,4,10,0.95) 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE DRAWER — Slide-up panels for mobile
+   ═══════════════════════════════════════════════════════════════ */
+.mobile-drawer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  max-height: 55vh;
+  border-radius: 16px 16px 0 0;
+  overflow-y: auto;
+  z-index: 400;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer.open {
+  transform: translateY(0);
+}
+
+.mobile-drawer-handle {
+  width: 36px; height: 4px;
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+  margin: 8px auto 8px;
+}
+
+/* ── Mobile Bottom Nav ── */
+.mobile-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 450;
+  display: none;
+  padding: 0 4px;
+  padding-bottom: env(safe-area-inset-bottom, 4px);
+  background: linear-gradient(180deg, transparent 0%, rgba(4,4,10,0.95) 30%);
+}
+
+.mobile-nav-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6px 2px 4px;
+  gap: 0;
+}
+
+.mobile-nav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 5px 6px; border-radius: 8px;
+  font-family: var(--font-hud); font-size: 6px; letter-spacing: 0.08em;
+  color: var(--text-muted); background: transparent;
+  border: none; cursor: pointer; transition: all 0.2s ease;
+  text-transform: uppercase;
+  min-width: 0;
+  flex: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-btn.active {
+  color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.mobile-nav-btn svg {
+  width: 16px; height: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  :root { --edge-pad: 12px; --panel-gap: 8px; }
+  .desktop-only { display: none !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  :root { --edge-pad: 8px; --panel-gap: 6px; }
+
+  .desktop-only { display: none !important; }
+  .mobile-nav { display: block; }
+
+  /* Hide corner frames on mobile */
+  .corner-frame { display: none !important; }
+
+  /* Hide desktop panels */
+  .desktop-panel { display: none !important; }
+
+  /* Adjust map popups for touch */
+  .maplibregl-popup { max-width: 260px !important; font-size: 10px !important; }
+  .maplibregl-popup-content { max-width: 260px !important; padding: 8px !important; }
+  .maplibregl-popup-close-button { font-size: 18px !important; padding: 4px 8px !important; }
+
+  /* Glass panel mobile tweaks */
+  .glass-panel { border-radius: 12px; }
+
+  /* Status bar mobile */
+  .status-bar-desktop { display: none !important; }
+
+  /* Prevent body scroll when drawer is open */
+  body.drawer-open { overflow: hidden; }
+}
+
+/* Small phones */
+@media (max-width: 390px) {
+  :root { --edge-pad: 4px; }
+  .mobile-nav-btn { padding: 4px 3px; font-size: 5px; }
+  .mobile-nav-btn svg { width: 14px; height: 14px; }
+}
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (max-width: 1024px) {
+  .desktop-only { display: none !important; }
+  .desktop-panel { display: none !important; }
+  .status-bar-desktop { display: none !important; }
+  .mobile-nav { display: block; }
+  .mobile-nav-inner { padding: 4px 2px 2px; }
+  .mobile-nav-btn { padding: 3px 4px; font-size: 5px; }
+  .mobile-nav-btn svg { width: 14px; height: 14px; }
+  .mobile-nav-btn span { display: none; }
+  .mobile-drawer-handle { margin: 4px auto 4px; }
+}
+
+/* Safe area for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .mobile-nav { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* Safe area for horizontal notch (landscape) */
+@supports (padding: env(safe-area-inset-left)) {
+  .mobile-nav { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+}
+
+/* ── Widescreen / Ultrawide Scaling ── */
+/* Scale up the entire UI on large displays so fonts aren't tiny */
+@media (min-width: 2560px) {
+  :root { font-size: 18px; }
+  .glass-panel { min-width: 280px; }
+  .maplibregl-popup-content { font-size: 14px !important; }
+}
+
+@media (min-width: 3440px) {
+  :root { font-size: 20px; }
+  .glass-panel { min-width: 320px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ENHANCED DESIGN SYSTEM — Premium Components & Micro-Interactions
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────
+   1. SKELETON LOADING SHIMMER
+   Sweeping gradient for elegant loading placeholders
+   ───────────────────────────────────────────────────────────── */
+@keyframes skeleton-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+}
+
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.06) 25%,
+    rgba(212, 175, 55, 0.12) 50%,
+    rgba(212, 175, 55, 0.06) 75%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   2. ENHANCED GLASS PANEL — Interactive hover with spring feel
+   ───────────────────────────────────────────────────────────── */
+.glass-panel-interactive {
+  background: var(--bg-panel);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid var(--border-primary);
+  border-radius: 14px;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(212, 175, 55, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.glass-panel-interactive:hover {
+  transform: scale(1.01);
+  border-color: var(--border-active);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(212, 175, 55, 0.08),
+    0 1px 0 rgba(212, 175, 55, 0.1) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+}
+
+.glass-panel-interactive:active {
+  transform: scale(0.995);
+  transition-duration: 0.1s;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3. PULSE RING — Radar-ping live status indicator
+   ───────────────────────────────────────────────────────────── */
+@keyframes pulse-ring-expand {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-ring::before,
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  animation: pulse-ring-expand 2.4s cubic-bezier(0, 0.55, 0.45, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.pulse-ring::after {
+  animation-delay: 0.8s;
+}
+
+.pulse-ring--cyan::before,
+.pulse-ring--cyan::after {
+  border-color: var(--cyan-primary);
+}
+
+.pulse-ring--alert::before,
+.pulse-ring--alert::after {
+  border-color: var(--alert-red);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   4. SCANNING LINE — Vertical sweep for splash/loading screens
+   ───────────────────────────────────────────────────────────── */
+@keyframes scan-line-sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100vh));
+    opacity: 0;
+  }
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--cyan-glow) 15%,
+    var(--cyan-primary) 50%,
+    var(--cyan-glow) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 15px rgba(0, 229, 255, 0.4),
+    0 0 45px rgba(0, 229, 255, 0.15);
+  animation: scan-line-sweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: transform, opacity;
+  z-index: 10;
+}
+
+.scan-line--gold {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-glow) 15%,
+    var(--gold-primary) 50%,
+    var(--gold-glow) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 15px rgba(212, 175, 55, 0.4),
+    0 0 45px rgba(212, 175, 55, 0.15);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   5. STAT VALUE GLOW — Luminous important numbers
+   ───────────────────────────────────────────────────────────── */
+.stat-value-glow {
+  font-family: var(--font-hud);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold-primary);
+  text-shadow:
+    0 0 8px var(--gold-glow),
+    0 0 20px rgba(212, 175, 55, 0.15);
+  transition: text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-value-glow:hover {
+  text-shadow:
+    0 0 12px var(--gold-glow),
+    0 0 30px rgba(212, 175, 55, 0.25),
+    0 0 50px rgba(212, 175, 55, 0.1);
+}
+
+.stat-value-glow--cyan {
+  color: var(--cyan-primary);
+  text-shadow:
+    0 0 8px var(--cyan-glow),
+    0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+.stat-value-glow--cyan:hover {
+  text-shadow:
+    0 0 12px var(--cyan-glow),
+    0 0 30px rgba(0, 229, 255, 0.25),
+    0 0 50px rgba(0, 229, 255, 0.1);
+}
+
+.stat-value-glow--alert {
+  color: var(--alert-red);
+  text-shadow:
+    0 0 8px rgba(255, 61, 61, 0.3),
+    0 0 20px rgba(255, 61, 61, 0.15);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   6. TACTICAL BUTTON — Press feedback & hover glow
+   ───────────────────────────────────────────────────────────── */
+@keyframes btn-flash {
+  0% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+.btn-tactical {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-hud);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.btn-tactical:hover {
+  background: rgba(212, 175, 55, 0.14);
+  border-color: var(--border-active);
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.12),
+    0 0 50px rgba(212, 175, 55, 0.06);
+}
+
+.btn-tactical:active {
+  transform: scale(0.97);
+  transition-duration: 0.08s;
+}
+
+.btn-tactical:active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-glow);
+  animation: btn-flash 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+.btn-tactical--cyan {
+  background: rgba(0, 229, 255, 0.08);
+  border-color: var(--border-cyan);
+}
+
+.btn-tactical--cyan:hover {
+  background: rgba(0, 229, 255, 0.14);
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow:
+    0 0 20px rgba(0, 229, 255, 0.1),
+    0 0 50px rgba(0, 229, 255, 0.05);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   7. PANEL SLIDE-IN — Side entrance with blur transition
+   ───────────────────────────────────────────────────────────── */
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(40px);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.panel-slide-left {
+  animation: slide-in-left 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+.panel-slide-right {
+  animation: slide-in-right 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+/* Stagger children for cascading entrance */
+.panel-slide-left:nth-child(2) { animation-delay: 0.06s; }
+.panel-slide-left:nth-child(3) { animation-delay: 0.12s; }
+.panel-slide-left:nth-child(4) { animation-delay: 0.18s; }
+.panel-slide-right:nth-child(2) { animation-delay: 0.06s; }
+.panel-slide-right:nth-child(3) { animation-delay: 0.12s; }
+.panel-slide-right:nth-child(4) { animation-delay: 0.18s; }
+
+/* ─────────────────────────────────────────────────────────────
+   8. THREAT LEVEL BADGES — Color-coded with pulse animations
+   ───────────────────────────────────────────────────────────── */
+@keyframes threat-pulse-critical {
+  0%, 100% { box-shadow: 0 0 6px rgba(255, 61, 61, 0.4), inset 0 0 6px rgba(255, 61, 61, 0.1); }
+  50% { box-shadow: 0 0 16px rgba(255, 61, 61, 0.6), inset 0 0 10px rgba(255, 61, 61, 0.15); }
+}
+
+@keyframes threat-pulse-high {
+  0%, 100% { box-shadow: 0 0 6px rgba(255, 149, 0, 0.3), inset 0 0 6px rgba(255, 149, 0, 0.08); }
+  50% { box-shadow: 0 0 14px rgba(255, 149, 0, 0.5), inset 0 0 8px rgba(255, 149, 0, 0.12); }
+}
+
+@keyframes threat-pulse-elevated {
+  0%, 100% { box-shadow: 0 0 4px rgba(212, 175, 55, 0.25); }
+  50% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+}
+
+[class^="threat-badge-"],
+[class*=" threat-badge-"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-hud);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.threat-badge-critical {
+  color: var(--alert-red);
+  background: rgba(255, 61, 61, 0.1);
+  border-color: rgba(255, 61, 61, 0.3);
+  animation: threat-pulse-critical 1.8s ease-in-out infinite;
+}
+
+.threat-badge-high {
+  color: var(--alert-orange);
+  background: rgba(255, 149, 0, 0.1);
+  border-color: rgba(255, 149, 0, 0.25);
+  animation: threat-pulse-high 2.2s ease-in-out infinite;
+}
+
+.threat-badge-elevated {
+  color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.2);
+  animation: threat-pulse-elevated 3s ease-in-out infinite;
+}
+
+.threat-badge-nominal {
+  color: var(--alert-green);
+  background: rgba(0, 230, 118, 0.08);
+  border-color: rgba(0, 230, 118, 0.2);
+  box-shadow: 0 0 4px rgba(0, 230, 118, 0.15);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   9. DATA GRID CELL — Hover highlight & border glow
+   ───────────────────────────────────────────────────────────── */
+.data-grid-cell {
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: var(--font-hud);
+  font-size: 11px;
+  color: var(--text-secondary);
+  transition:
+    background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-grid-cell:hover {
+  background: var(--hover-accent);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.06);
+}
+
+.data-grid-cell--active {
+  background: rgba(212, 175, 55, 0.06);
+  border-color: var(--border-active);
+  color: var(--gold-primary);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.08);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   10. HUD TOOLTIP — Glass tooltip with arrow and fade-in
+   ───────────────────────────────────────────────────────────── */
+@keyframes tooltip-fade-in {
+  0% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hud-tooltip {
+  position: absolute;
+  z-index: 9999;
+  padding: 8px 14px;
+  font-family: var(--font-hud);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  background: rgba(12, 14, 26, 0.92);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 12px rgba(212, 175, 55, 0.06);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tooltip-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+/* Tooltip arrow — bottom-pointing (tooltip above target) */
+.hud-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: rgba(12, 14, 26, 0.92);
+  border-right: 1px solid var(--border-primary);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.hud-tooltip--top::after {
+  top: -5px;
+  bottom: auto;
+  transform: translateX(-50%) rotate(-135deg);
+}
+
+.hud-tooltip--gold {
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   11. INTEL PROGRESS BAR — Animated loading with glow
+   ───────────────────────────────────────────────────────────── */
+@keyframes progress-glow-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.intel-progress {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+}
+
+.intel-progress__bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--gold-dim) 0%,
+    var(--gold-primary) 50%,
+    var(--gold-light) 100%
+  );
+  border-radius: 4px;
+  box-shadow: 0 0 12px var(--gold-glow);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.intel-progress__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 50%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: progress-glow-slide 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+.intel-progress--cyan .intel-progress__bar {
+  background: linear-gradient(
+    90deg,
+    var(--cyan-dim) 0%,
+    var(--cyan-primary) 100%
+  );
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+/* Indeterminate / loading state */
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%) scaleX(0.4); }
+  50% { transform: translateX(20%) scaleX(0.6); }
+  100% { transform: translateX(100%) scaleX(0.4); }
+}
+
+.intel-progress--loading .intel-progress__bar {
+  width: 100% !important;
+  animation: progress-indeterminate 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   12. PREMIUM LAYER TOGGLE — Larger toggle with glow trail
+   ───────────────────────────────────────────────────────────── */
+.layer-toggle-premium {
+  position: relative;
+  width: 42px;
+  height: 22px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.layer-toggle-premium::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.layer-toggle-premium.active {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.15);
+}
+
+.layer-toggle-premium.active::after {
+  transform: translateX(20px);
+  background: var(--gold-primary);
+  box-shadow:
+    0 0 10px rgba(212, 175, 55, 0.6),
+    0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+/* Glow trail on active toggle */
+.layer-toggle-premium.active::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  right: 6px;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.05),
+    rgba(212, 175, 55, 0.15)
+  );
+  pointer-events: none;
+}
+
+.layer-toggle-premium--cyan.active {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--cyan-primary);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.12);
+}
+
+.layer-toggle-premium--cyan.active::after {
+  background: var(--cyan-primary);
+  box-shadow:
+    0 0 10px rgba(0, 229, 255, 0.6),
+    0 0 25px rgba(0, 229, 255, 0.2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   13. NOTIFICATION PULSE — Alert badge with expanding ring
+   ───────────────────────────────────────────────────────────── */
+@keyframes notification-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.notification-pulse {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--alert-red);
+  box-shadow: 0 0 6px rgba(255, 61, 61, 0.5);
+}
+
+.notification-pulse::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--alert-red);
+  animation: notification-ring 1.6s cubic-bezier(0, 0.55, 0.45, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.notification-pulse--gold {
+  background: var(--gold-primary);
+  box-shadow: 0 0 6px var(--gold-glow);
+}
+
+.notification-pulse--gold::before {
+  background: var(--gold-primary);
+}
+
+.notification-pulse--cyan {
+  background: var(--cyan-primary);
+  box-shadow: 0 0 6px var(--cyan-glow);
+}
+
+.notification-pulse--cyan::before {
+  background: var(--cyan-primary);
+}
+
+/* With count badge */
+.notification-pulse--count {
+  width: 18px;
+  height: 18px;
+  font-family: var(--font-hud);
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   14. PARTICLE GRID BACKGROUND — Animated dot pattern
+   ───────────────────────────────────────────────────────────── */
+@keyframes particle-grid-drift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-1px, 3px); }
+  75% { transform: translate(3px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes particle-grid-flicker {
+  0%, 100% { opacity: 0.35; }
+  33% { opacity: 0.5; }
+  66% { opacity: 0.25; }
+}
+
+.particle-grid {
+  position: relative;
+}
+
+.particle-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.12) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  animation:
+    particle-grid-drift 20s ease-in-out infinite,
+    particle-grid-flicker 8s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.particle-grid--cyan::before {
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 229, 255, 0.08) 1px,
+    transparent 1px
+  );
+}
+
+.particle-grid--dense::before {
+  background-size: 16px 16px;
+}
+
+.particle-grid > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Reduced Motion — Respect accessibility preferences ── */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer::after,
+  .scan-line,
+  .pulse-ring::before,
+  .pulse-ring::after,
+  .notification-pulse::before,
+  .intel-progress__bar::after,
+  .intel-progress--loading .intel-progress__bar,
+  .particle-grid::before {
+    animation: none;
+  }
+
+  .glass-panel-interactive,
+  .btn-tactical,
+  .panel-slide-left,
+  .panel-slide-right,
+  .layer-toggle-premium::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* IP Sweep animations */
+@keyframes sweep-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+@keyframes sweep-radar {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes sweep-device-appear {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GOTHAM COMMAND SYSTEM — Palantir-class intelligence aesthetic
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Splash Boot Sequence ── */
+@keyframes splash-ring-outer { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes splash-ring-inner { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+@keyframes splash-ring-mid { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
+@keyframes splash-letter-in {
+  0% { opacity: 0; transform: translateY(8px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes splash-subtitle-reveal {
+  0% { width: 0; opacity: 0; }
+  20% { opacity: 1; }
+  100% { width: 100%; opacity: 1; }
+}
+@keyframes splash-progress-sweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes splash-scanline {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.splash-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.splash-ring--outer {
+  width: 140px; height: 140px;
+  border-color: rgba(212,175,55,0.25);
+  border-top-color: var(--gold-primary);
+  animation: splash-ring-outer 3s linear infinite;
+}
+.splash-ring--mid {
+  width: 110px; height: 110px;
+  border-color: rgba(212,175,55,0.12);
+  border-right-color: rgba(212,175,55,0.6);
+  animation: splash-ring-mid 5s linear infinite;
+}
+.splash-ring--inner {
+  width: 80px; height: 80px;
+  border-color: rgba(0,229,255,0.1);
+  border-bottom-color: rgba(0,229,255,0.5);
+  animation: splash-ring-inner 4s linear infinite;
+}
+.splash-ring--core {
+  width: 40px; height: 40px;
+  background: radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%);
+  border: 2px solid var(--gold-primary);
+  box-shadow: 0 0 30px rgba(212,175,55,0.4), 0 0 60px rgba(212,175,55,0.15), inset 0 0 20px rgba(212,175,55,0.2);
+}
+.splash-ring--core::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  opacity: 0.3;
+}
+
+.splash-scanline {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-primary) 30%, var(--cyan-primary) 70%, transparent 100%);
+  box-shadow: 0 0 20px var(--gold-primary), 0 0 60px rgba(212,175,55,0.3);
+  animation: splash-scanline 2.5s ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.splash-progress-bar {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), var(--cyan-primary), var(--gold-primary), transparent);
+  background-size: 200% 100%;
+  animation: splash-progress-sweep 1.5s linear infinite;
+}
+
+/* ── Gotham Command Bar ── */
+.gotham-command-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, rgba(15,15,20,0.95) 0%, rgba(8,10,20,0.9) 100%);
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg, transparent 0%, var(--border-primary) 20%, var(--border-active) 50%, var(--border-primary) 80%, transparent 100%) 1;
+  box-shadow: 0 1px 0 rgba(212,175,55,0.05) inset, 0 4px 20px rgba(0,0,0,0.4);
+  font-family: var(--font-hud);
+}
+
+/* ── Gotham Stat Counter ── */
+.gotham-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.gotham-stat__value {
+  font-family: var(--font-hud);
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-heading);
+  text-shadow: 0 0 12px rgba(212,175,55,0.3);
+  line-height: 1;
+}
+.gotham-stat__label {
+  font-family: var(--font-hud);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Gotham Intel Tags ── */
+.gotham-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-family: var(--font-hud);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.gotham-tag--critical { background: rgba(255,61,61,0.12); color: #FF3D3D; border-color: rgba(255,61,61,0.3); }
+.gotham-tag--high { background: rgba(255,149,0,0.12); color: #FF9500; border-color: rgba(255,149,0,0.3); }
+.gotham-tag--medium { background: rgba(212,175,55,0.12); color: #D4AF37; border-color: rgba(212,175,55,0.3); }
+.gotham-tag--low { background: rgba(0,230,118,0.12); color: #00E676; border-color: rgba(0,230,118,0.3); }
+.gotham-tag--info { background: rgba(0,229,255,0.08); color: var(--cyan-primary); border-color: rgba(0,229,255,0.2); }
+.gotham-tag--classified { background: rgba(212,175,55,0.08); color: var(--gold-primary); border-color: rgba(212,175,55,0.25); letter-spacing: 0.2em; }
+
+/* ── Gotham Section Divider ── */
+.gotham-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+.gotham-divider::before,
+.gotham-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-primary));
+}
+.gotham-divider::after {
+  background: linear-gradient(90deg, var(--border-primary), transparent);
+}
+.gotham-divider__label {
+  font-family: var(--font-hud);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── UTC Clock ── */
+.gotham-clock {
+  font-family: var(--font-hud);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+/* ── Smooth Entry ── */
+@keyframes gotham-enter {
+  0% { opacity: 0; transform: translateY(12px); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.gotham-enter {
+  animation: gotham-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   GOTHAM COMMAND SYSTEM — Palantir-Class Component Library
+   Sovereign-grade UI primitives for global intelligence operations
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────
+   G1. GOTHAM COMMAND BAR
+   Top-level navigation bar with gradient border & inner glow.
+   Sits at the apex of the visual hierarchy.
+   ───────────────────────────────────────────────────────────── */
+.gotham-command-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--edge-pad);
+  height: 48px;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 14, 26, 0.96) 0%,
+    rgba(6, 6, 12, 0.98) 100%
+  );
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom: 1px solid transparent;
+  /* Gradient border via background-image on pseudo-element */
+  box-shadow:
+    0 1px 0 rgba(212, 175, 55, 0.08) inset,
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 500;
+  font-family: var(--font-hud);
+  flex-shrink: 0;
+}
+
+/* Gradient border-bottom effect — gold-to-transparent fade */
+.gotham-command-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-dim) 15%,
+    var(--gold-primary) 50%,
+    var(--gold-dim) 85%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Inner glow — subtle top highlight simulating ambient light */
+.gotham-command-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.12),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.gotham-command-bar__section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gotham-command-bar__title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-heading);
+}
+
+.gotham-command-bar__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--border-secondary);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.gotham-command-bar__action:hover {
+  color: var(--gold-primary);
+  border-color: var(--border-primary);
+  background: rgba(212, 175, 55, 0.06);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.08);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G2. GOTHAM DATA CARD
+   Primary content container with left-accent border,
+   hover lift, and layered depth shadows.
+   ───────────────────────────────────────────────────────────── */
+.gotham-card {
+  position: relative;
+  padding: 20px 22px;
+  background: var(--bg-panel);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid var(--border-secondary);
+  border-left: 3px solid var(--gold-dim);
+  border-radius: 10px;
+  box-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(212, 175, 55, 0.04) inset;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease;
+  will-change: transform;
+}
+
+.gotham-card:hover {
+  transform: translateY(-2px);
+  border-left-color: var(--gold-primary);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(212, 175, 55, 0.06),
+    0 1px 0 rgba(212, 175, 55, 0.08) inset;
+}
+
+.gotham-card:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/* Variant: Cyan accent for intel/data streams */
+.gotham-card--cyan {
+  border-left-color: var(--cyan-dim);
+}
+
+.gotham-card--cyan:hover {
+  border-left-color: var(--cyan-primary);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(0, 229, 255, 0.05),
+    0 1px 0 rgba(0, 229, 255, 0.06) inset;
+}
+
+/* Variant: Alert accent for critical items */
+.gotham-card--alert {
+  border-left-color: rgba(255, 61, 61, 0.4);
+}
+
+.gotham-card--alert:hover {
+  border-left-color: var(--alert-red);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 61, 61, 0.06);
+}
+
+.gotham-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.gotham-card__title {
+  font-family: var(--font-hud);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-heading);
+}
+
+.gotham-card__body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G3. GOTHAM STAT COUNTER
+   Large tabular-nums readout with glowing value
+   and structured label below.
+   ───────────────────────────────────────────────────────────── */
+.gotham-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 16px 18px;
+}
+
+.gotham-stat__value {
+  font-family: var(--font-hud);
+  font-size: 32px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--text-heading);
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, 0.2),
+    0 0 30px rgba(212, 175, 55, 0.08);
+  letter-spacing: -0.02em;
+  transition: text-shadow 0.4s ease;
+}
+
+.gotham-stat:hover .gotham-stat__value {
+  text-shadow:
+    0 0 14px rgba(212, 175, 55, 0.35),
+    0 0 40px rgba(212, 175, 55, 0.12),
+    0 0 60px rgba(212, 175, 55, 0.06);
+}
+
+.gotham-stat__value--gold {
+  color: var(--gold-primary);
+}
+
+.gotham-stat__value--cyan {
+  color: var(--cyan-primary);
+  text-shadow:
+    0 0 10px rgba(0, 229, 255, 0.2),
+    0 0 30px rgba(0, 229, 255, 0.08);
+}
+
+.gotham-stat__value--alert {
+  color: var(--alert-red);
+  text-shadow:
+    0 0 10px rgba(255, 61, 61, 0.25),
+    0 0 30px rgba(255, 61, 61, 0.1);
+}
+
+.gotham-stat__label {
+  font-family: var(--font-hud);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.gotham-stat__delta {
+  font-family: var(--font-hud);
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--alert-green);
+  letter-spacing: 0.04em;
+}
+
+.gotham-stat__delta--negative {
+  color: var(--alert-red);
+}
+
+/* Compact variant for inline stat rows */
+.gotham-stat--compact {
+  padding: 8px 12px;
+  gap: 3px;
+}
+
+.gotham-stat--compact .gotham-stat__value {
+  font-size: 20px;
+}
+
+.gotham-stat--compact .gotham-stat__label {
+  font-size: 7px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G4. GOTHAM SECTION DIVIDER
+   Thin gradient line with centered label overlay.
+   Used to delineate sections within panels.
+   ───────────────────────────────────────────────────────────── */
+.gotham-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 24px;
+  margin: 8px 0;
+}
+
+/* The gradient line */
+.gotham-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-primary) 20%,
+    var(--gold-dim) 50%,
+    var(--border-primary) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Label centered over the line */
+.gotham-divider__label {
+  position: relative;
+  z-index: 1;
+  padding: 0 14px;
+  background: var(--bg-secondary);
+  font-family: var(--font-hud);
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Variant: Cyan-tinted divider */
+.gotham-divider--cyan::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-cyan) 20%,
+    var(--cyan-dim) 50%,
+    var(--border-cyan) 80%,
+    transparent 100%
+  );
+}
+
+/* Variant: No label, just the line */
+.gotham-divider--plain {
+  height: 1px;
+  margin: 12px 0;
+}
+
+.gotham-divider--plain::before {
+  top: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G5. GOTHAM INTEL TAGS
+   Color-coded pill badges for classification,
+   priority levels, and status indicators.
+   ───────────────────────────────────────────────────────────── */
+.gotham-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  font-family: var(--font-hud);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-secondary);
+  border-radius: 100px;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.gotham-tag:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+/* ── Priority Level Tags ── */
+.gotham-tag-critical {
+  color: var(--alert-red);
+  background: rgba(255, 61, 61, 0.1);
+  border-color: rgba(255, 61, 61, 0.25);
+  box-shadow: 0 0 8px rgba(255, 61, 61, 0.1);
+}
+
+.gotham-tag-critical:hover {
+  background: rgba(255, 61, 61, 0.15);
+  border-color: rgba(255, 61, 61, 0.35);
+  box-shadow: 0 0 14px rgba(255, 61, 61, 0.15);
+}
+
+.gotham-tag-high {
+  color: var(--alert-orange);
+  background: rgba(255, 149, 0, 0.08);
+  border-color: rgba(255, 149, 0, 0.2);
+  box-shadow: 0 0 6px rgba(255, 149, 0, 0.08);
+}
+
+.gotham-tag-high:hover {
+  background: rgba(255, 149, 0, 0.13);
+  border-color: rgba(255, 149, 0, 0.3);
+  box-shadow: 0 0 12px rgba(255, 149, 0, 0.12);
+}
+
+.gotham-tag-medium {
+  color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.18);
+}
+
+.gotham-tag-medium:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.28);
+}
+
+.gotham-tag-low {
+  color: var(--alert-green);
+  background: rgba(0, 230, 118, 0.07);
+  border-color: rgba(0, 230, 118, 0.15);
+}
+
+.gotham-tag-low:hover {
+  background: rgba(0, 230, 118, 0.1);
+  border-color: rgba(0, 230, 118, 0.25);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G6. GOTHAM PULSE RING
+   Concentric expanding rings for live data indicators.
+   Three-ring cascade with staggered timing.
+   ───────────────────────────────────────────────────────────── */
+@keyframes gotham-ring-expand {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+    border-width: 2px;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+.gotham-pulse-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+}
+
+/* Core dot */
+.gotham-pulse-ring::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 6px var(--gold-glow);
+  z-index: 2;
+}
+
+/* Expanding rings via box-shadow layers */
+.gotham-pulse-ring::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  animation: gotham-ring-expand 2.8s cubic-bezier(0, 0.4, 0.4, 1) infinite;
+  will-change: transform, opacity;
+}
+
+/* Second ring — staggered */
+.gotham-pulse-ring__ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  animation: gotham-ring-expand 2.8s cubic-bezier(0, 0.4, 0.4, 1) infinite;
+  animation-delay: 0.9s;
+  will-change: transform, opacity;
+}
+
+/* Third ring — further staggered */
+.gotham-pulse-ring__ring:nth-child(2) {
+  animation-delay: 1.8s;
+}
+
+/* Variant: Cyan for data streams */
+.gotham-pulse-ring--cyan::before {
+  background: var(--cyan-primary);
+  box-shadow: 0 0 6px var(--cyan-glow);
+}
+
+.gotham-pulse-ring--cyan::after,
+.gotham-pulse-ring--cyan .gotham-pulse-ring__ring {
+  border-color: var(--cyan-primary);
+}
+
+/* Variant: Alert (red) for critical status */
+.gotham-pulse-ring--alert::before {
+  background: var(--alert-red);
+  box-shadow: 0 0 8px rgba(255, 61, 61, 0.4);
+}
+
+.gotham-pulse-ring--alert::after,
+.gotham-pulse-ring--alert .gotham-pulse-ring__ring {
+  border-color: var(--alert-red);
+}
+
+/* Variant: Nominal (green) */
+.gotham-pulse-ring--nominal::before {
+  background: var(--alert-green);
+  box-shadow: 0 0 6px rgba(0, 230, 118, 0.3);
+}
+
+.gotham-pulse-ring--nominal::after,
+.gotham-pulse-ring--nominal .gotham-pulse-ring__ring {
+  border-color: var(--alert-green);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G7. GOTHAM GRID SYSTEM
+   Responsive grid utilities — auto-collapse on smaller
+   viewports. Calibrated gap matches panel spacing.
+   ───────────────────────────────────────────────────────────── */
+.gotham-grid-2,
+.gotham-grid-3,
+.gotham-grid-4 {
+  display: grid;
+  gap: var(--panel-gap);
+  width: 100%;
+}
+
+.gotham-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gotham-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.gotham-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Tablet: 3→2, 4→2 */
+@media (max-width: 1024px) {
+  .gotham-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gotham-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: everything → 1 column */
+@media (max-width: 768px) {
+  .gotham-grid-2,
+  .gotham-grid-3,
+  .gotham-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G8. GOTHAM SIDEBAR
+   Full-height scrollable sidebar with refined spacing,
+   subtle border, and scroll-shadow indicators.
+   ───────────────────────────────────────────────────────────── */
+.gotham-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  );
+  border-right: 1px solid var(--border-secondary);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+
+  /* Scrollbar */
+}
+
+.gotham-sidebar::-webkit-scrollbar { width: 3px; }
+.gotham-sidebar::-webkit-scrollbar-track { background: transparent; }
+.gotham-sidebar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+}
+.gotham-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+.gotham-sidebar__header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 18px 20px 14px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-secondary);
+  /* Scroll-shadow effect: fades content under the header */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.gotham-sidebar__section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.gotham-sidebar__section-title {
+  font-family: var(--font-hud);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.gotham-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.gotham-sidebar__item:hover {
+  background: var(--hover-accent);
+  color: var(--text-primary);
+}
+
+.gotham-sidebar__item--active {
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-primary);
+  border-left: 2px solid var(--gold-primary);
+  padding-left: 10px;
+}
+
+.gotham-sidebar__footer {
+  margin-top: auto;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-secondary);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G9. GOTHAM HEADER BADGE
+   Small inline badge for version numbers, status labels,
+   environment indicators, classification levels.
+   ───────────────────────────────────────────────────────────── */
+.gotham-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-family: var(--font-hud);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-secondary);
+  border-radius: 4px;
+  line-height: 1.6;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Variant: Gold — active / primary */
+.gotham-badge--gold {
+  color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+/* Variant: Cyan — info / data */
+.gotham-badge--cyan {
+  color: var(--cyan-primary);
+  background: rgba(0, 229, 255, 0.06);
+  border-color: rgba(0, 229, 255, 0.15);
+}
+
+/* Variant: Green — operational / live */
+.gotham-badge--live {
+  color: var(--alert-green);
+  background: rgba(0, 230, 118, 0.06);
+  border-color: rgba(0, 230, 118, 0.15);
+}
+
+/* Variant: Red — alert / error */
+.gotham-badge--alert {
+  color: var(--alert-red);
+  background: rgba(255, 61, 61, 0.08);
+  border-color: rgba(255, 61, 61, 0.2);
+}
+
+/* With dot indicator */
+.gotham-badge--dot::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  margin-right: 5px;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G10. GOTHAM ENTRY ANIMATION
+   Fade-up-in with blur for initial element load.
+   Apply to page sections, cards, panels on mount.
+   ───────────────────────────────────────────────────────────── */
+@keyframes gotham-fade-up-in {
+  0% {
+    transform: translateY(16px);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.gotham-enter {
+  animation: gotham-fade-up-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+/* Stagger delays for cascading entrance sequences */
+.gotham-enter-delay-1 { animation-delay: 0.06s; }
+.gotham-enter-delay-2 { animation-delay: 0.12s; }
+.gotham-enter-delay-3 { animation-delay: 0.18s; }
+.gotham-enter-delay-4 { animation-delay: 0.24s; }
+.gotham-enter-delay-5 { animation-delay: 0.30s; }
+.gotham-enter-delay-6 { animation-delay: 0.36s; }
+.gotham-enter-delay-7 { animation-delay: 0.42s; }
+.gotham-enter-delay-8 { animation-delay: 0.48s; }
+
+/* Auto-stagger: Apply to parent and children animate in order */
+.gotham-enter-stagger > * {
+  animation: gotham-fade-up-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+.gotham-enter-stagger > *:nth-child(1) { animation-delay: 0.04s; }
+.gotham-enter-stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.gotham-enter-stagger > *:nth-child(3) { animation-delay: 0.12s; }
+.gotham-enter-stagger > *:nth-child(4) { animation-delay: 0.16s; }
+.gotham-enter-stagger > *:nth-child(5) { animation-delay: 0.20s; }
+.gotham-enter-stagger > *:nth-child(6) { animation-delay: 0.24s; }
+.gotham-enter-stagger > *:nth-child(7) { animation-delay: 0.28s; }
+.gotham-enter-stagger > *:nth-child(8) { animation-delay: 0.32s; }
+.gotham-enter-stagger > *:nth-child(9) { animation-delay: 0.36s; }
+.gotham-enter-stagger > *:nth-child(10) { animation-delay: 0.40s; }
+
+/* ─────────────────────────────────────────────────────────────
+   GOTHAM — Reduced Motion Overrides
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .gotham-enter,
+  .gotham-enter-stagger > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .gotham-pulse-ring::after,
+  .gotham-pulse-ring__ring {
+    animation: none;
+  }
+
+  .gotham-card {
+    transition-duration: 0.01ms !important;
+  }
+}

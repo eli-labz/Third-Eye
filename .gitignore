@@ -1,0 +1,61 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+.env
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Scanner backend (API key in env, not in git)
+scanner/
+.vercel
+
+# Security - prevent accidental backup commits
+scanner_backend_backup.js
+
+# Security - Prevent accidental manual leaks
+*Manual*.md
+
+# Security - credentials / live secrets
+credentials.json
+
+# Internal AI memory store
+/AI-Memory/
+
+# Dev artifacts / fork diffs (not part of the app)
+*.diff
+diff.txt
+temp_routes.txt
+
+
+# Downloaded binaries / installers (not part of the app)
+/ollama/
+*.exe
