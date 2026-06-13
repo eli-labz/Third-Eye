@@ -17,10 +17,14 @@ import KeyboardShortcuts from '@/components/KeyboardShortcuts';
 import GlobalStatusBar from '@/components/GlobalStatusBar';
 import LiveAlerts from '@/components/LiveAlerts';
 
+import { isSmartSystemEnabled } from '@/smart_system/config';
+
 const ThirdEyeMap = dynamic(() => import('@/components/ThirdEyeMap'), { ssr: false });
 const LayerPanel = dynamic(() => import('@/components/LayerPanel'));
 const CameraViewer = dynamic(() => import('@/components/CameraViewer'));
 const OsintPanel = dynamic(() => import('@/components/OsintPanel'));
+// Feature-flagged (ENABLE_MSS_SMART_SYSTEM_MODULE) — code-split so it adds nothing when disabled.
+const SmartSystemPanel = dynamic(() => import('@/components/SmartSystemPanel'));
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -113,6 +117,9 @@ export default function Dashboard() {
   const [scanTargets, setScanTargets] = useState<any[]>([]);
   const [demoMode, setDemoMode] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  // Smart System (feature-flagged) — hidden unless ENABLE_MSS_SMART_SYSTEM_MODULE is set.
+  const [showSmartSystem, setShowSmartSystem] = useState(false);
+  const smartSystemEnabled = isSmartSystemEnabled();
 
   const isMobile = useIsMobile();
   const geocodeCache = useRef<Map<string, string>>(new Map());
@@ -787,7 +794,7 @@ export default function Dashboard() {
       {/* ── RIGHT TOOL STRIP ── */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-[250] pointer-events-auto bg-black/40 backdrop-blur-sm p-1 rounded-full border border-white/5">
         <div className="relative group">
-          <button onClick={() => { setShowIntel(!showIntel); setShowMarkets(false); setShowAlerts(false); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showIntel ? 'bg-[var(--cyan-primary)]/20' : 'hover:bg-white/10'}`} title="Toggle OSINT panel" aria-label="Toggle OSINT panel">
+          <button onClick={() => { setShowIntel(!showIntel); setShowMarkets(false); setShowAlerts(false); setShowSmartSystem(false); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showIntel ? 'bg-[var(--cyan-primary)]/20' : 'hover:bg-white/10'}`} title="Toggle OSINT panel" aria-label="Toggle OSINT panel">
             <Radar className={`w-4 h-4 ${showIntel ? 'text-[var(--cyan-primary)]' : 'text-white/60'}`} />
           </button>
           {/* OSINT / Recon Panel Slideout */}
@@ -807,7 +814,7 @@ export default function Dashboard() {
         </div>
 
         <div className="relative group">
-          <button onClick={() => { setShowMarkets(!showMarkets); setShowIntel(false); setShowAlerts(false); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showMarkets ? 'bg-[var(--gold-primary)]/20' : 'hover:bg-white/10'}`} title="Toggle markets panel" aria-label="Toggle markets panel">
+          <button onClick={() => { setShowMarkets(!showMarkets); setShowIntel(false); setShowAlerts(false); setShowSmartSystem(false); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showMarkets ? 'bg-[var(--gold-primary)]/20' : 'hover:bg-white/10'}`} title="Toggle markets panel" aria-label="Toggle markets panel">
             <BarChart3 className={`w-4 h-4 ${showMarkets ? 'text-[var(--gold-primary)]' : 'text-white/60'}`} />
           </button>
           {/* Markets Panel Slideout */}
@@ -821,7 +828,7 @@ export default function Dashboard() {
         </div>
 
         <div className="relative group">
-          <button onClick={() => { setShowAlerts(!showAlerts); setShowIntel(false); setShowMarkets(false); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showAlerts ? 'bg-[#FF3D3D]/20' : 'hover:bg-white/10'}`} title="Toggle live alerts panel" aria-label="Toggle live alerts panel">
+          <button onClick={() => { setShowAlerts(!showAlerts); setShowIntel(false); setShowMarkets(false); setShowSmartSystem(false); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showAlerts ? 'bg-[#FF3D3D]/20' : 'hover:bg-white/10'}`} title="Toggle live alerts panel" aria-label="Toggle live alerts panel">
             <AlertTriangle className={`w-4 h-4 ${showAlerts ? 'text-[#FF3D3D]' : 'text-white/60'}`} />
           </button>
           {/* Alerts Panel Slideout */}
@@ -839,7 +846,7 @@ export default function Dashboard() {
 
         <div className="relative group">
           <button
-            onClick={() => setShowConfig(p => !p)}
+            onClick={() => { setShowConfig(p => !p); setShowSmartSystem(false); }}
             className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showConfig ? 'bg-[var(--gold-primary)]/20' : 'hover:bg-white/10'}`}
             title="Open configuration (.env.local)"
             aria-label="Open configuration panel"
@@ -860,6 +867,32 @@ export default function Dashboard() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* ── SMART SYSTEM (feature-flagged: ENABLE_MSS_SMART_SYSTEM_MODULE) ── */}
+        {smartSystemEnabled && (
+          <div className="relative group">
+            <button
+              onClick={() => { setShowSmartSystem(p => !p); setShowIntel(false); setShowMarkets(false); setShowAlerts(false); setShowConfig(false); }}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${showSmartSystem ? 'bg-[var(--cyan-primary)]/20' : 'hover:bg-white/10'}`}
+              title="Smart System — data fusion & human review (decision-support)"
+              aria-label="Toggle Smart System panel"
+            >
+              <Database className={`w-4 h-4 ${showSmartSystem ? 'text-[var(--cyan-primary)]' : 'text-white/60'}`} />
+            </button>
+            <AnimatePresence>
+              {showSmartSystem && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="absolute right-12 top-1/2 -translate-y-1/2 w-[360px]"
+                >
+                  <SmartSystemPanel />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       {/* ── LIVE FEED VIEWER OVERLAY ── */}

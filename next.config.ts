@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Surface the Smart System feature flag to the client bundle under its exact
+  // name so the same `ENABLE_MSS_SMART_SYSTEM_MODULE` check works on server
+  // (API routes) and client (nav visibility). Defaults to off when unset.
+  env: {
+    ENABLE_MSS_SMART_SYSTEM_MODULE: process.env.ENABLE_MSS_SMART_SYSTEM_MODULE ?? '',
+  },
   serverExternalPackages: ['ws'],
   transpilePackages: ['react-map-gl', 'mapbox-gl', 'maplibre-gl'],
   typescript: {
